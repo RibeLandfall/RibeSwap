@@ -492,6 +492,7 @@ contract RibeSwapRouter is IRibeSwapRouter01, Ownable{
     {
         if(IRibeSwapFactory(factory).isBaseTokenFunction(tokenInAddress)) // is Buy
         {
+            require(IRibeToken(tokenOutAddress).buyFeePercentage() <= 1000, 'RibeSwapRouter: BUY FEE IS TOO HIGH'); // %10 maximum fee
             uint tokenFee = calculateFee(IRibeToken(tokenOutAddress).buyFeePercentage(), amountIn, 2);
             uint platformFee = calculateFee(30, amountIn, 2); // 0.3% Hati Sacrifice Fee
             amountIn -= tokenFee;
