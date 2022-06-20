@@ -465,7 +465,7 @@ contract RibeSwapRouter is IRibeSwapRouter01, Ownable{
                 tokenInAddress, msg.sender, address(this), platformFee
             );
             IERC20(tokenInAddress).approve(IRibeSwapFactory(factory).getHatiSacrificeAddress(), platformFee);
-            IHatiSacrifice(IRibeSwapFactory(factory).getHatiSacrificeAddress()).depositToken(address(this), tokenInAddress, platformFee);
+            IHatiSacrifice(IRibeSwapFactory(factory).getHatiSacrificeAddress()).depositToken(tokenOutAddress, tokenInAddress, platformFee);
             IRibeToken(tokenOutAddress).onBuyFeeCollected(tokenInAddress, tokenFee);
         }
         return amountIn;
@@ -482,7 +482,7 @@ contract RibeSwapRouter is IRibeSwapRouter01, Ownable{
             WETH, address(this), tokenAddress, tokenFee
         );
         IERC20(WETH).approve(IRibeSwapFactory(factory).getHatiSacrificeAddress(), platformFee);
-        IHatiSacrifice(IRibeSwapFactory(factory).getHatiSacrificeAddress()).depositToken(address(this), WETH, platformFee);
+        IHatiSacrifice(IRibeSwapFactory(factory).getHatiSacrificeAddress()).depositToken(tokenAddress, WETH, platformFee);
 
         IRibeToken(tokenAddress).onSellFeeCollected(WETH, tokenFee);
         return amountOut;
@@ -501,7 +501,7 @@ contract RibeSwapRouter is IRibeSwapRouter01, Ownable{
                 tokenInAddress, address(this), tokenOutAddress, tokenFee
             );
             IERC20(tokenInAddress).approve(IRibeSwapFactory(factory).getHatiSacrificeAddress(), platformFee);
-            IHatiSacrifice(IRibeSwapFactory(factory).getHatiSacrificeAddress()).depositToken(address(this), tokenInAddress, platformFee);
+            IHatiSacrifice(IRibeSwapFactory(factory).getHatiSacrificeAddress()).depositToken(tokenOutAddress, tokenInAddress, platformFee);
 
             IRibeToken(tokenOutAddress).onBuyFeeCollected(tokenInAddress, tokenFee);
         }

@@ -517,7 +517,7 @@ contract RibeSwapPair is IRibeSwapPair, RibeSwapERC20 {
             amount -= platformFee;
             _safeTransfer(token, pairedToken, tokenFee);
             IERC20(token).approve(IRibeSwapFactory(factory).getHatiSacrificeAddress(), platformFee);
-            IHatiSacrifice(IRibeSwapFactory(factory).getHatiSacrificeAddress()).depositToken(address(this), token, platformFee);
+            IHatiSacrifice(IRibeSwapFactory(factory).getHatiSacrificeAddress()).depositToken(pairedToken, token, platformFee);
             IRibeToken(pairedToken).onSellFeeCollected(token, tokenFee);
         }
         _safeTransfer(token, to, amount); // optimistically transfer tokens

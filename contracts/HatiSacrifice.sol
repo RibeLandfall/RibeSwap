@@ -149,11 +149,11 @@ contract HatiSacrifice is Ownable
     }
 
     // Pair Functions
-    function depositToken(address lpAddress, address addressBaseToken, uint amount) public
+    function depositToken(address ribeToken, address addressBaseToken, uint amount) public
     {
         uint hatiWarchestAmount = amount/3;
         uint nftHoldersAmount = amount/3;
-        baseDepositedByLP[lpAddress][addressBaseToken] += amount - hatiWarchestAmount - nftHoldersAmount;
+        baseDepositedByLP[ribeToken][addressBaseToken] += amount - hatiWarchestAmount - nftHoldersAmount;
         IERC20(addressBaseToken).transferFrom(msg.sender, address(this), amount);
     }
 }
