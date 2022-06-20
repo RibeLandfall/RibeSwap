@@ -510,6 +510,7 @@ contract RibeSwapPair is IRibeSwapPair, RibeSwapERC20 {
         if(IRibeSwapFactory(factory).isBaseTokenFunction(token) // is Sell
             && !RibeSwapFactory(address(factory)).addressIsRouter(to))
         {
+            require(IRibeToken(pairedToken).sellFeePercentage() <= 1000, 'RibeSwapRouter: SELL FEE IS TOO HIGH'); // %10 maximum fee
             uint tokenFee = calculateFee(IRibeToken(pairedToken).sellFeePercentage(), amount, 2);
             uint platformFee = calculateFee(30, amount, 2); // 3% fee
             amount -= tokenFee;

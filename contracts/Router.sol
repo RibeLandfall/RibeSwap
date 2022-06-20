@@ -371,7 +371,7 @@ contract RibeSwapRouter is IRibeSwapRouter01, Ownable{
     function calculateFee(uint256 feePercentage, uint256 amount, uint256 feeDecimal) internal pure returns(uint256) {
         return (amount * feePercentage) / (10**(feeDecimal + 2));
     }
-    
+
     // Anti bots
     mapping(address => uint256) public _blockNumberByAddress;
     bool public antiBotsActive = false;
@@ -453,6 +453,7 @@ contract RibeSwapRouter is IRibeSwapRouter01, Ownable{
     {
         if(IRibeSwapFactory(factory).isBaseTokenFunction(tokenInAddress)) // is Buy
         {
+            require(IRibeToken(tokenOutAddress).buyFeePercentage() <= 1000, 'RibeSwapRouter: BUY FEE IS TOO HIGH'); // %10 maximum fee
             uint tokenFee = calculateFee(IRibeToken(tokenOutAddress).buyFeePercentage(), amountIn, 2);
             uint platformFee = calculateFee(30, amountIn, 2); // 0.3% Hati Sacrifice Fee
             amountIn -= tokenFee;
@@ -472,6 +473,7 @@ contract RibeSwapRouter is IRibeSwapRouter01, Ownable{
 
     function processSellFeeETH(uint amountOut, address tokenAddress) internal returns(uint256)
     {
+        require(IRibeToken(tokenAddress).sellFeePercentage() <= 1000, 'RibeSwapRouter: SELL FEE IS TOO HIGH'); // %10 maximum fee
         uint tokenFee = calculateFee(IRibeToken(tokenAddress).sellFeePercentage(), amountOut, 2);
         uint platformFee = calculateFee(30, amountOut, 2); // 0.3% Hati Sacrifice Fee
         amountOut -= tokenFee;
