@@ -19,3 +19,9 @@ npx hardhat help
 ```bash
 npx hardhat size-contracts
 ```
+
+### Mainnet Contract Addresses
+
+* Factory: `0x5ACcFe50F9D5A9F3cdAB8864943250b1074146b1`
+* Router Liquidity: `0xeA663F4997cf31c9AaE5E45157c228a24FFd59f2`
+* Router: `0x6976BE4AcDfc9bEf86AaEa3C6B6e8490Aad90b5E`
